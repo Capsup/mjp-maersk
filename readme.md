@@ -93,8 +93,8 @@ Inside the API project, the project is split up into a few different folders:
     ├── Controllers             # The implementation of the Controllers for the API  
     ├── Models                  # Regular old DTOs are implemented here  
     ├── Services                # Implementation of services  
-        ├── Interfaces          # Interfaces for the services  
-    ├── program.cs              # The main program, starting the Kestrel webserver and configuring the IoC container among other middleware.  
+    │   └──Interfaces           # Interfaces for the services  
+    └── program.cs              # The main program, starting the Kestrel webserver and configuring the IoC container among other middleware.  
 
 Services use both an interface and a concrete implementation, to make it easier to use them in the IoC container as well as allowing unit testing of each component, separate from each other. It also reduces coupling.
 
