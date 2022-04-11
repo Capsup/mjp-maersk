@@ -88,13 +88,13 @@ I use a very standard ASP.Net Core setup, making use of as much default function
 
 The solution is split up into two different projects, the main API project using Kestrel as a webserver inside the `MJP.MaerskOfflineTest` folder. The other project is a UnitTest project using MSTest inside the `MJP.MaerskOfflineTest.Tests` folder.
 
-Inside the API project, the project is split up into a few different folders:
-    .
-    ├── Controllers             # The implementation of the Controllers for the API
-    ├── Models                  # Regular old DTOs are implemented here
-    ├── Services                # Implementation of services
-        ├── Interfaces          # Interfaces for the services
-    ├── program.cs              # The main program, starting the Kestrel webserver and configuring the IoC container among other middleware.
+Inside the API project, the project is split up into a few different folders:  
+    .  
+    ├── Controllers             # The implementation of the Controllers for the API  
+    ├── Models                  # Regular old DTOs are implemented here  
+    ├── Services                # Implementation of services  
+        ├── Interfaces          # Interfaces for the services  
+    ├── program.cs              # The main program, starting the Kestrel webserver and configuring the IoC container among other middleware.  
 
 Services use both an interface and a concrete implementation, to make it easier to use them in the IoC container as well as allowing unit testing of each component, separate from each other. It also reduces coupling.
 
