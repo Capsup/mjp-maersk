@@ -1,0 +1,191 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MJP.MaerskOfflineTest",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Voyage": {
+      "post": {
+        "tags": [
+          "Voyage"
+        ],
+        "summary": "Adds a new ContainerBooking to the given voyageCode.",
+        "parameters": [
+          {
+            "name": "voyageCode",
+            "in": "query",
+            "description": "The key for looking up in the database. Must not be null or empty.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "description": "The price of the container booking.",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "description": "The currency of the price for the container booking. Cannot be null or empty.",
+            "schema": {
+              "$ref": "#/components/schemas/CurrencyEnum"
+            }
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "description": "The timestamp to use for the container booking. Must be of the format \"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffzzz\".",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Voyage/GetAverage": {
+      "get": {
+        "tags": [
+          "Voyage"
+        ],
+        "summary": "Returns the average price for all container bookings for the given voyageCode.",
+        "parameters": [
+          {
+            "name": "voyageCode",
+            "in": "query",
+            "description": "The key for looking up in the database. Must not be null or empty.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "description": "The currency of the price for the container booking. Cannot be null or empty.",
+            "schema": {
+              "$ref": "#/components/schemas/CurrencyEnum"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Voyage/GetLastPrices": {
+      "get": {
+        "tags": [
+          "Voyage"
+        ],
+        "summary": "Returns the last n prices of container bookings for the given voyageCode, ordered in descending order by a booking's timestamp.",
+        "parameters": [
+          {
+            "name": "voyageCode",
+            "in": "query",
+            "description": "The key for looking up in the database. Must not be null or empty.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "description": "The currency of the price for the container booking. Cannot be null or empty.",
+            "schema": {
+              "$ref": "#/components/schemas/CurrencyEnum"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "The amount of prices to return, starting from the newest ContainerBooking.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CurrencyEnum": {
+        "enum": [
+          "EUR",
+          "USD",
+          "DKK"
+        ],
+        "type": "string"
+      }
+    }
+  }
+}
